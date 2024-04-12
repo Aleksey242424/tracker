@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from fastapi import Form
+from src.auth.models import WorkerType
 
 
 class LoginForm(BaseModel):
@@ -17,15 +18,14 @@ class RegisterForm(BaseModel):
     username:str
     password:str
     email:str
-    is_owner:bool
-
+    is_owner:bool = True
+    worker_type:WorkerType = None
     @classmethod
     def as_form(cls,
             username:str=Form(),
             password:str=Form(),
-            email:str=Form(),
-            is_owner:bool=Form()):
+            email:str=Form()):
         return cls(username=username,
                    password=password,
-                   email=email,
-                   is_owner=is_owner)
+                   email=email)
+

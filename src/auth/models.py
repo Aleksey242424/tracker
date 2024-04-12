@@ -2,13 +2,25 @@ from sqlalchemy.orm import Mapped,mapped_column
 from sqlalchemy import ForeignKey
 from sqlalchemy.types import VARCHAR,INTEGER,BOOLEAN
 from database import Base
+import enum
+
+
+class WorkerType(enum.Enum):
+    null = None
+    frontend = "Frontend"
+    backend = "Backend"
+    fullstack = "FullStack"
+    datascience = "Datascience"
 
 class Users(Base):
     __tablename__ = "users"
     user_id:Mapped[int]=mapped_column(INTEGER,primary_key=True)
     username:Mapped[str]=mapped_column(VARCHAR(255))
-    password:Mapped[str]=mapped_column(VARCHAR(255))
+    password:Mapped[str]=mapped_column(VARCHAR(255),nullable=True)
+    email:Mapped[str]=mapped_column(VARCHAR(255),nullable=True)
     is_owner:Mapped[bool]=mapped_column(BOOLEAN)
+    worker_type:Mapped[WorkerType]=mapped_column(nullable=True)
+
 
 class Company(Base):
     __tablename__ = "company"
