@@ -1,8 +1,5 @@
 from src.auth.models import Users as UsersTable
 from sqlalchemy.future import select
-from sqlalchemy.ext.asyncio import AsyncSession
-from fastapi import Depends
-from sqlalchemy.ext.asyncio import AsyncSession,async_sessionmaker
 from src.auth.utils import get_async_session
 
 
@@ -25,3 +22,4 @@ class Users:
             instance = await session.execute(select(UsersTable).where(UsersTable.username==username,UsersTable.password==password))
             instance = instance.scalar()
             return instance
+        

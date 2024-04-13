@@ -1,18 +1,19 @@
 """empty message
 
-Revision ID: dff14f17ed9a
+Revision ID: b243e85ea362
 Revises: 
-Create Date: 2024-04-12 16:01:22.254427
+Create Date: 2024-04-14 01:36:05.946224
 
 """
 from typing import Sequence, Union
 
 from alembic import op
 import sqlalchemy as sa
+from sqlalchemy.dialects import postgresql
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'dff14f17ed9a'
+revision: str = 'b243e85ea362'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -26,7 +27,8 @@ def upgrade() -> None:
     sa.Column('password', sa.VARCHAR(length=255), nullable=True),
     sa.Column('email', sa.VARCHAR(length=255), nullable=True),
     sa.Column('is_owner', sa.BOOLEAN(), nullable=False),
-    sa.Column('worker_type', sa.Enum('null', 'frontend', 'backend', 'fullstack', 'datascience', name='workertype'), nullable=True),
+    sa.Column('company_id', sa.VARCHAR(length=255), nullable=True),
+    sa.Column('worker_type', sa.Enum('null', 'frontend', 'backend', 'fullstack', 'datascience', name='workertype').with_variant(postgresql.ENUM('null', 'frontend', 'backend', 'fullstack', 'datascience', name='workertype',create_type=False),"postgresql"), nullable=True),
     sa.PrimaryKeyConstraint('user_id')
     )
     op.create_table('company',
