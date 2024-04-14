@@ -9,7 +9,10 @@ from alembic import context
 # access to the values within the .ini file in use.
 config = context.config
 from database import DB_CONNECT
-config.set_main_option("sqlalchemy.url",DB_CONNECT+"?async_fallback=True")
+from os import getenv
+from dotenv import load_dotenv
+load_dotenv()
+config.set_main_option("sqlalchemy.url",f'{getenv("DB_DIALECT")}+{getenv("DB_API")}://{getenv("DB_USER")}:{getenv("DB_PASSWORD")}@{getenv("DB_HOST")}:{getenv("DB_PORT")}/{getenv("DB_NAME")}'+"?async_fallback=True")
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

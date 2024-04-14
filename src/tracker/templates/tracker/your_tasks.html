@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Task</title>
+</head>
+<body>
+    {%for task in tasks%}
+    {%if task[0].task_name != None%}
+    <a href="/tracker/your_tasks/{{user}}/task/{{task[0].owner_id}}/info">{{task[0].task_name}}</a> 
+    {%endif%}
+    
+    {%endfor%}
+</body>
+</html>
