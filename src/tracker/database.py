@@ -34,7 +34,5 @@ class Company:
         async with async_session() as session:
             tasks = await session.execute(select(CompanyTable).where(CompanyTable.owner_id==owner_id))
             return tasks.all()
-        
-    
-    
+            
             

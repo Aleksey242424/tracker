@@ -26,6 +26,6 @@ class Users:
     @staticmethod
     async def get_user_by_company_id(owner_id:int,async_session=get_async_session()):
         async with async_session() as session:
-            users_data = await session.execute(select(UsersTable).join(UserTimerTable,UsersTable.user_id==UserTimerTable.user_id).where(UsersTable.user_id == owner_id))
+            users_data = await session.execute(select(UsersTable,UserTimerTable).join(UserTimerTable,UserTimerTable.user_id == UserTimerTable.user_id).where(UsersTable.user_id == owner_id))
             return users_data.all()
         
